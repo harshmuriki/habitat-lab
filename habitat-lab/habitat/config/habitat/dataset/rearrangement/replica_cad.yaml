@@ -6,5 +6,5 @@ defaults:
 
 type: RearrangeDataset-v0
 split: train
-data_path: data/datasets/rearrange_pick/replica_cad/v0/{split}/{split}_counter_L_analysis_5000_500.json.gz
-scenes_dir: "data/replica_cad/"
+data_path: /home/harshmuriki/Documents/habitat-lab/data/datasets/replica_cad/rearrange/v2/{split}/rearrange_easy.json.gz
+scenes_dir: "/home/harshmuriki/Documents/habitat-lab/data/replica_cad/"

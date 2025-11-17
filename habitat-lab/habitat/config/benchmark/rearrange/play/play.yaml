@@ -9,10 +9,10 @@ defaults:
   - /habitat/task: task_config_base
   - /habitat/task/rearrange/actions: fetch_suction_arm_base_empty
   - /habitat/task/measurements:
-    - articulated_agent_force
-    - zero
+      - articulated_agent_force
+      - zero
   - /habitat/task/lab_sensors:
-    - joint_sensor
+      - joint_sensor
 
   - /habitat/dataset/rearrangement: replica_cad
   - _self_
@@ -63,4 +63,5 @@ habitat:
     habitat_sim_v0:
       enable_physics: True
   dataset:
-    data_path: data/datasets/replica_cad/rearrange/v2/{split}/rearrange_easy.json.gz
+    data_path: /home/harshmuriki/Documents/habitat-lab/data/datasets/replica_cad/rearrange/v2/{split}/rearrange_easy.json.gz
+    scenes_dir: /home/harshmuriki/Documents/habitat-lab/data/replica_cad/
