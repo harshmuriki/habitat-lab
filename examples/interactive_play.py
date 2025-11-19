@@ -458,7 +458,7 @@ class FreeCamHelper:
         return step_result
 
 
-def play_env(env, args, config):
+def play_env(env, args, config, screen=None):
     render_steps_limit = None
     if args.no_render:
         render_steps_limit = DEFAULT_RENDER_STEPS_LIMIT
@@ -473,10 +473,12 @@ def play_env(env, args, config):
 
     if not args.no_render:
         draw_obs = observations_to_image(obs, {})
-        pygame.init()
-        screen = pygame.display.set_mode(
-            [draw_obs.shape[1], draw_obs.shape[0]]
-        )
+        if screen is None:
+            pygame.init()
+            screen = pygame.display.set_mode(
+                [draw_obs.shape[1], draw_obs.shape[0]]
+            )
+        print("DEBUG: pygame.display.set_mode done")
 
     update_idx = 0
     target_fps = 60.0
@@ -747,6 +749,15 @@ if __name__ == "__main__":
             "Need to install PyGame (run `pip install pygame==2.0.1`)"
         )
 
+    screen = None
+    if not args.no_render:
+        # Try to force software rendering to avoid conflict with EGL
+        os.environ["SDL_RENDER_DRIVER"] = "software"
+        pygame.init()
+        screen = pygame.display.set_mode(
+            [args.play_cam_res, args.play_cam_res]
+        )
+
     config = habitat.get_config(args.cfg, args.opts)
     with habitat.config.read_write(config):
         env_config = config.habitat.environment
@@ -800,4 +811,4 @@ if __name__ == "__main__":
             task_config.actions["pddl_apply_action"] = PddlApplyActionConfig()
 
     with habitat.Env(config=config) as env:
-        play_env(env, args, config)
+        play_env(env, args, config, screen)
